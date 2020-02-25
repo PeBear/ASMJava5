@@ -2,13 +2,17 @@ package com.xpeter.dao;
 
 import java.util.List;
 
+import javax.persistence.StoredProcedureQuery;
+
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xpeter.model.Staff;
+import com.xpeter.model.ThanhTich;
 
 @Repository
 public class StaffDAOImpl implements StaffDAO {
@@ -36,9 +40,8 @@ public class StaffDAOImpl implements StaffDAO {
 
 	@Override
 	public Staff getInfoStaff(String staffId) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Staff staff = (Staff) session.get(Staff.class, staffId);
-		session.close();
 		return staff;
 	}
 
@@ -100,4 +103,22 @@ public class StaffDAOImpl implements StaffDAO {
 		return false;
 	}
 
+	public void getThanhTich(String staffId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "CALL spThongKeThanhTich(:staffId)";
+		Query query = session.createSQLQuery(hql);
+		query.setParameter("staffId", staffId);
+		List<Object[]> list = query.list();
+		ThanhTich thanhTich = new ThanhTich();
+		//Dua vao cot cua sp
+		if (list.size() > 0) {
+			String name = String.valueOf((list.get(0)[0]));
+			int achievement = Integer.parseInt((list.get(0)[1]).toString());
+			int discipline = Integer.parseInt((list.get(0)[2]).toString());
+			thanhTich.setName(name);
+			thanhTich.setAchievement(achievement);
+			thanhTich.setDiscipline(discipline);
+		}
+		System.out.println(thanhTich);
+	}
 }

@@ -1,10 +1,13 @@
 eclipse.preferences.version=1
-encoding//WebContent/WEB-INF/view/index.jsp=UTF-8
+encoding//WebContent/WEB-INF/view/layout.jsp=UTF-8
 encoding//i18n-res/global.properties=UTF-8
 encoding//i18n-res/global_vi.properties=UTF-8
 encoding//i18n-res/home.about.properties=UTF-8
 encoding//i18n-res/home.about_vi.properties=UTF-8
+encoding//i18n-res/home.depart_vi.properties=UTF-8
 encoding//i18n-res/home.index.properties=UTF-8
 encoding//i18n-res/home.index_vi.properties=UTF-8
+encoding//i18n-res/home.record.properties=UTF-8
+encoding//i18n-res/home.record_vi.properties=UTF-8
 encoding//i18n-res/home.staff.properties=UTF-8
 encoding//i18n-res/home.staff_vi.properties=UTF-8

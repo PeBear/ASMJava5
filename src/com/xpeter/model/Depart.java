@@ -1,8 +1,7 @@
 package com.xpeter.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,8 @@ public class Depart implements Serializable {
 	@Column(name = "Id")
 	private String departId;
 	private String name;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "depart")
-	private Set<Staff> staffs = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departId")
+	private Collection<Staff> staffCollection;
 
 	public Depart() {
 		super();
@@ -45,15 +44,15 @@ public class Depart implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-//	public Set<Staff> getStaffs() {
-//		return staffs;
-//	}
-//
-//	public void setStaffs(Set<Staff> staffs) {
-//		this.staffs = staffs;
-//	}
 	
+	public Collection<Staff> getStaffCollection() {
+		return staffCollection;
+	}
+
+	public void setStaffCollection(Collection<Staff> staffCollection) {
+		this.staffCollection = staffCollection;
+	}
+
 	@Override
 	public String toString() {
 		return "Depart [departId=" + departId + ", name=" + name + "]";

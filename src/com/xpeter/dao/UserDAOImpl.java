@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public List<User> getListUser(String fullname) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM User";
 		if (fullname != null) {
 			hql += " WHERE Fullname like " + fullname;
@@ -30,15 +30,13 @@ public class UserDAOImpl implements UserDAO {
 		Query query = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<User> list = query.list();
-		session.close();
 		return list;
 	}
 
 	@Override
 	public User getInfoUser(String username) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		User user = (User) session.get(User.class, username);
-		session.close();
 		return user;
 	}
 

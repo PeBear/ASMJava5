@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.xpeter.dao.DepartDAO;
 import com.xpeter.model.Depart;
 
 @Service
+@Transactional
 public class DepartServiceImpl implements DepartService {
 
 	@Autowired
@@ -19,11 +21,13 @@ public class DepartServiceImpl implements DepartService {
 	}
 
 	@Override
+	@Transactional
 	public List<Depart> getListDepart(String name) {
 		return departDAO.getListDepart(name);
 	}
 
 	@Override
+	@Transactional
 	public Depart getInfoDepart(String departId) {
 		return departDAO.getInfoDepart(departId);
 	}

@@ -1,9 +1,8 @@
 package com.xpeter.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +25,7 @@ public class Staff implements Serializable {
 	private String name;
 	private boolean gender;
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 	private String photo;
 	private String email;
@@ -34,10 +33,10 @@ public class Staff implements Serializable {
 	private float salary;
 	private String notes;
 	@ManyToOne
-	@JoinColumn(name = "departId")
-	private Depart depart;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "staff")
-	private Set<Record> records = new HashSet<>();
+	@JoinColumn(name = "DepartId", referencedColumnName = "Id")
+	private Depart departId;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "staffId")
+	private Collection<Record> recordCollection;
 
 	public Staff() {
 		super();
@@ -129,26 +128,24 @@ public class Staff implements Serializable {
 		this.notes = notes;
 	}
 
-//	public Depart getDepart() {
-//		return depart;
-//	}
-//
-//	public void setDepart(Depart depart) {
-//		this.depart = depart;
-//	}
-//
-//	public Set<Record> getRecords() {
-//		return records;
-//	}
-//
-//	public void setRecords(Set<Record> records) {
-//		this.records = records;
-//	}
+	public Depart getDepartId() {
+		return departId;
+	}
+
+	public void setDepartId(Depart departId) {
+		this.departId = departId;
+	}
+
+	public Collection<Record> getRecordCollection() {
+		return recordCollection;
+	}
+
+	public void setRecordCollection(Collection<Record> recordCollection) {
+		this.recordCollection = recordCollection;
+	}
 
 	@Override
 	public String toString() {
-		return "Staff [staffId=" + staffId + ", name=" + name + ", gender=" + gender + ", birthday=" + birthday
-				+ ", photo=" + photo + ", email=" + email + ", phone=" + phone + ", salary=" + salary + ", notes="
-				+ notes + "]";
+		return "entity.Staff[ staffId=" + staffId + " ]";
 	}
 }

@@ -22,31 +22,28 @@ public class RecordDAOImpl implements RecordDAO {
 
 	@Override
 	public List<Record> getListRecord() {
-		Session session = sessionFactory.openSession();
-		String hql = "FROM Staff";
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM Record";
 		Query query = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<Record> list = query.list();
-		session.close();
 		return list;
 	}
 
 	@Override
 	public List<Record> getListRecordByType(boolean type) {
-		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("FROM Staff WHERE Type = :type");
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("FROM Record WHERE Type = :type");
 		query.setParameter("type", type);
 		@SuppressWarnings("unchecked")
 		List<Record> list = query.list();
-		session.close();
 		return list;
 	}
 
 	@Override
 	public Record getInfoRecord(int recordId) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Record record = (Record) session.get(Record.class, recordId);
-		session.close();
 		return record;
 	}
 

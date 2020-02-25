@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.xpeter.dao.RecordDAO;
 import com.xpeter.model.Record;
 
 @Service
+@Transactional
 public class RecordServiceImpl implements RecordService {
 	@Autowired
 	RecordDAO recordDAO;
@@ -18,16 +20,19 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
+	@Transactional
 	public List<Record> getListRecord() {
 		return recordDAO.getListRecord();
 	}
 
 	@Override
+	@Transactional
 	public List<Record> getListRecordByType(boolean type) {
 		return recordDAO.getListRecordByType(type);
 	}
 
 	@Override
+	@Transactional
 	public Record getInfoRecord(int recordId) {
 		return recordDAO.getInfoRecord(recordId);
 	}

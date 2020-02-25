@@ -22,7 +22,7 @@ public class DepartDAOImpl implements DepartDAO {
 
 	@Override
 	public List<Depart> getListDepart(String name) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM Depart";
 		if (name != null) {
 			hql += " WHERE Name like " + name;
@@ -30,15 +30,13 @@ public class DepartDAOImpl implements DepartDAO {
 		Query query = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<Depart> list = query.list();
-		session.close();
 		return list;
 	}
 
 	@Override
 	public Depart getInfoDepart(String departId) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Depart depart = (Depart) session.get(Depart.class, departId);
-		session.close();
 		return depart;
 	}
 

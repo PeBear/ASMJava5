@@ -24,22 +24,31 @@ public class Record implements Serializable {
 	private boolean type;
 	private String reason;
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	@ManyToOne
-	@JoinColumn(name = "staffId")
-	private Staff staff;
+	@JoinColumn(name = "StaffId", referencedColumnName = "Id")
+	private Staff staffId;
 
 	public Record() {
 		super();
 	}
 
-	public Record(int recordId, boolean type, String reason, Date date) {
+	public Record(boolean type, String reason, Date date, Staff staffId) {
+		super();
+		this.type = type;
+		this.reason = reason;
+		this.date = date;
+		this.staffId = staffId;
+	}
+
+	public Record(int recordId, boolean type, String reason, Date date, Staff staffId) {
 		super();
 		this.recordId = recordId;
 		this.type = type;
 		this.reason = reason;
 		this.date = date;
+		this.staffId = staffId;
 	}
 
 	public int getRecordId() {
@@ -74,14 +83,14 @@ public class Record implements Serializable {
 		this.date = date;
 	}
 
-//	public Staff getStaff() {
-//		return staff;
-//	}
-//
-//	public void setStaff(Staff staff) {
-//		this.staff = staff;
-//	}
-	
+	public Staff getStaff() {
+		return staffId;
+	}
+
+	public void setStaff(Staff staffId) {
+		this.staffId = staffId;
+	}
+
 	@Override
 	public String toString() {
 		return "Record [recordId=" + recordId + ", type=" + type + ", reason=" + reason + ", date=" + date + "]";

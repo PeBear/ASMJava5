@@ -36,7 +36,6 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
@@ -93,6 +92,8 @@
 				<value>classpath:home.index</value>
 				<value>classpath:home.about</value>
 				<value>classpath:home.staff</value>
+				<value>classpath:home.depart</value>
+				<value>classpath:home.record</value>
 			</list>
 		</property>
 	</bean>

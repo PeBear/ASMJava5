@@ -14,4 +14,6 @@ public interface StaffService {
 	public boolean updateStaff(Staff staff);
 
 	public boolean deleteStaff(String staffId);
+
+	public void getThanhTich(String staffId);
 }

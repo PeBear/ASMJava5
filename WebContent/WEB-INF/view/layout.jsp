@@ -15,39 +15,61 @@
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/popper.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 header {
-	background-image: url('resources/images/banner2.jpg');
-	background-size: 100%;
-	background-repeat: no-repeat;
-	padding-bottom: 18%;
+	padding: 1.75em;
+}
+
+article {
+	background-color: #F3F6F9;
+	font-size: 14px;
+}
+
+.bg-white {
+	background-color: #FFFFFF;
 }
 </style>
 </head>
 
 <body class="container-flush">
-	<header> </header>
+	<header></header>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+		<div>
+			<a class="navbar-brand" href="#">xPeter BearLoli</a>
+		</div>
+		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item"><a class="nav-link text-light"
+					data-lang="en" href="#">English</a></li>
+				<li class="nav-item"><a class="nav-link text-light"
+					data-lang="vi" href="#">Vi</a></li>
+			</ul>
+		</div>
+	</nav>
 	<div class="row mb-2">
 		<aside class="col-xl-2 pl-0 pr-0 bg-dark text-center">
 			<div class="list-group list-group-flush  mb-2">
-				<a href="#"
-					class="list-group-item bg-success text-light font-weight-bold font">Dashboard</a>
-				<a href="#"
+				<a href="dashboard.htm"
+					class="list-group-item bg-success text-light font-weight-bold">Dashboard</a>
+				<a href="staffManage.htm"
 					class="list-group-item list-group-item-action bg-dark text-light">
 					<s:message code="global.aside.staff" />
-				</a> <a href="#"
+				</a> <a href="departManage.htm"
 					class="list-group-item list-group-item-action bg-dark text-light"><s:message
-						code="global.aside.depart" /> </a> <a href="#"
-					class="list-group-item list-group-item-action bg-dark text-light"><s:message
+						code="global.aside.depart" /> </a> <a href="recordManage.htm"
+					class="list-group-item list-group-item-action bg-dark text-light dropdown-toggle"
+					data-toggle="collapse" data-target="#collapse"><s:message
 						code="global.aside.record" /> </a>
+				<div class="collapse" id="collapse" style="font-size: 14px">
+					<a class="list-group-item list-group-item-action bg-dark text-light"
+						href="recordManage.htm?type=true">Achievements</a> <a
+						class="list-group-item list-group-item-action bg-dark text-light"
+						href="recordManage.htm?type=false">Discipline</a>
+				</div>
 			</div>
 		</aside>
-		<article class="col-xl-10 pl-0 pr-0">
-			<jsp:include page="staffManage.jsp"></jsp:include>
+		<article class="col-xl-10 p-0">
+			<jsp:include page="${param.view}"></jsp:include>
 		</article>
 	</div>
 
@@ -75,5 +97,16 @@ header {
 
 	</footer>
 </body>
-
+<script type="text/javascript">
+	//function chuyen doi da ngon ngu
+	$(function() {
+		$("a[data-lang]").click(function() {
+			var lang = $(this).attr("data-lang");
+			$.get("dashboard.htm?language=" + lang, function() {
+				location.reload();
+			});
+			return false;
+		});
+	});
+</script>
 </html>

@@ -94,6 +94,9 @@
 				<value>classpath:home.staff</value>
 				<value>classpath:home.depart</value>
 				<value>classpath:home.record</value>
+				<value>classpath:home.dashboard</value>
+				<value>classpath:statistic.staff</value>
+				<value>classpath:statistic.depart</value>
 			</list>
 		</property>
 	</bean>

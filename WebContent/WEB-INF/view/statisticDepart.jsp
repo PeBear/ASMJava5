@@ -7,7 +7,7 @@
 <div class="navbar navbar-expand-sm bg-white">
 	<div class="navbar-text navbar-title"
 		style="color: rgba(70, 90, 110, 0.85); font-size: 1.3rem;">
-		<b> <s:message code="home.dashboard.title" />
+		<b> <s:message code="statistic.depart.title" />
 		</b>
 	</div>
 </div>
@@ -17,10 +17,10 @@
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr class="text-center">
-					<th><s:message code="home.dashboard.column1" /></th>
-					<th><s:message code="home.dashboard.column2" /></th>
-					<th><s:message code="home.dashboard.column3" /></th>
-					<th><s:message code="home.dashboard.column4" /></th>
+					<th><s:message code="statistic.depart.column1" /></th>
+					<th><s:message code="statistic.depart.column2" /></th>
+					<th><s:message code="statistic.depart.column3" /></th>
+					<th><s:message code="statistic.depart.column4" /></th>
 				</tr>
 			</thead>
 			<tbody>

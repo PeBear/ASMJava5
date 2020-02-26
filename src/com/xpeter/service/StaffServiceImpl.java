@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xpeter.dao.StaffDAO;
 import com.xpeter.model.Staff;
+import com.xpeter.model.ThanhTich;
 
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -49,8 +50,15 @@ public class StaffServiceImpl implements StaffService {
 		return staffDAO.deleteStaff(staffId);
 	}
 
+	@Override
 	@Transactional
-	public void getThanhTich(String staffId) {
-		staffDAO.getThanhTich(staffId);
+	public List<ThanhTich> getListStatistic(String staffId) {
+		return staffDAO.getListStatistic(staffId);
+	}
+
+	@Override
+	@Transactional
+	public List<ThanhTich> getTop10Statistic() {
+		return staffDAO.getTop10Statistic();
 	}
 }

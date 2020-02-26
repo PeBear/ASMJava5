@@ -1,5 +1,6 @@
 package com.xpeter.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xpeter.model.Depart;
+import com.xpeter.model.ThanhTich;
 
 @Repository
 public class DepartDAOImpl implements DepartDAO {
-	
+
 	@Autowired
 	SessionFactory sessionFactory;
 
@@ -98,4 +100,25 @@ public class DepartDAOImpl implements DepartDAO {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ThanhTich> getListStatistic() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "CALL spThongKeThanhTichPhongBan()";
+		Query query = session.createSQLQuery(hql);
+		List<Object[]> list = query.list();
+		List<ThanhTich> listStatistic = new ArrayList<ThanhTich>();
+		// Dua vao cot cua sp
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				String name = String.valueOf((list.get(i)[0]));
+				int achievement = Integer.parseInt((list.get(i)[1]).toString());
+				int discipline = Integer.parseInt((list.get(i)[2]).toString());
+				int result = Integer.parseInt((list.get(i)[3]).toString());
+				ThanhTich thanhTich = new ThanhTich(name, achievement, discipline, result);
+				listStatistic.add(thanhTich);
+			}
+		}
+		return listStatistic;
+	}
 }

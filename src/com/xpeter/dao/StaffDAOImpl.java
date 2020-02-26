@@ -1,11 +1,9 @@
 package com.xpeter.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.StoredProcedureQuery;
-
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,22 +101,59 @@ public class StaffDAOImpl implements StaffDAO {
 		return false;
 	}
 
-	public void getThanhTich(String staffId) {
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ThanhTich> getListStatistic(String staffId) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "CALL spThongKeThanhTich(:staffId)";
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("staffId", staffId);
 		List<Object[]> list = query.list();
-		ThanhTich thanhTich = new ThanhTich();
+		List<ThanhTich> listStatistic = new ArrayList<ThanhTich>();
 		//Dua vao cot cua sp
 		if (list.size() > 0) {
-			String name = String.valueOf((list.get(0)[0]));
-			int achievement = Integer.parseInt((list.get(0)[1]).toString());
-			int discipline = Integer.parseInt((list.get(0)[2]).toString());
-			thanhTich.setName(name);
-			thanhTich.setAchievement(achievement);
-			thanhTich.setDiscipline(discipline);
+			for (int i = 0; i < list.size(); i++) {
+				String name = String.valueOf((list.get(i)[0]));
+				int achievement = Integer.parseInt((list.get(i)[1]).toString());
+				int discipline = Integer.parseInt((list.get(i)[2]).toString());
+				int result = Integer.parseInt((list.get(i)[3]).toString());
+				ThanhTich thanhTich = new ThanhTich(name, achievement, discipline, result);
+				listStatistic.add(thanhTich);
+			}
 		}
-		System.out.println(thanhTich);
+		return listStatistic;
+	}
+
+	@Override
+	public List<ThanhTich> getTop10Statistic() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "CALL spThongKeThanhTich(:staffId)";
+		Query query = session.createSQLQuery(hql);
+		query.setParameter("staffId", null);
+		List<Object[]> list = query.list();
+		List<ThanhTich> listStatistic = new ArrayList<ThanhTich>();
+		//Dua vao cot cua sp
+		if (list.size() > 0) {
+			//get Top 10 cause spThongKeThanhTich has order desc
+			if (list.size() >= 10) {
+				for (int i = 0; i < 10; i++) {
+					String name = String.valueOf((list.get(i)[0]));
+					int achievement = Integer.parseInt((list.get(i)[1]).toString());
+					int discipline = Integer.parseInt((list.get(i)[2]).toString());
+					int result = Integer.parseInt((list.get(i)[3]).toString());
+					ThanhTich thanhTich = new ThanhTich(name, achievement, discipline, result);
+					listStatistic.add(thanhTich);
+				}
+			}
+			for (int i = 0; i < list.size(); i++) {
+				String name = String.valueOf((list.get(i)[0]));
+				int achievement = Integer.parseInt((list.get(i)[1]).toString());
+				int discipline = Integer.parseInt((list.get(i)[2]).toString());
+				int result = Integer.parseInt((list.get(i)[3]).toString());
+				ThanhTich thanhTich = new ThanhTich(name, achievement, discipline, result);
+				listStatistic.add(thanhTich);
+			}
+		}
+		return listStatistic;
 	}
 }

@@ -56,15 +56,33 @@ article {
 					<s:message code="global.aside.staff" />
 				</a> <a href="departManage.htm"
 					class="list-group-item list-group-item-action bg-dark text-light"><s:message
-						code="global.aside.depart" /> </a> <a href="recordManage.htm"
-					class="list-group-item list-group-item-action bg-dark text-light dropdown-toggle"
+						code="global.aside.depart" /> </a> 
+				<a href="#"
+					class="list-group-item list-group-item-action bg-dark text-light dropdown-toggle collapsed"
 					data-toggle="collapse" data-target="#collapse"><s:message
 						code="global.aside.record" /> </a>
 				<div class="collapse" id="collapse" style="font-size: 14px">
-					<a class="list-group-item list-group-item-action bg-dark text-light"
-						href="recordManage.htm?type=true">Achievements</a> <a
+					<a
 						class="list-group-item list-group-item-action bg-dark text-light"
-						href="recordManage.htm?type=false">Discipline</a>
+						href="recordManage.htm?type=true"><s:message
+							code="global.aside.record.achievement" /></a> <a
+						class="list-group-item list-group-item-action bg-dark text-light"
+						href="recordManage.htm?type=false"><s:message
+							code="global.aside.record.discipline" /></a>
+				</div>
+				<a	href="#"
+					class="list-group-item list-group-item-action bg-dark text-light dropdown-toggle collapsed"
+					data-toggle="collapse" data-target="#collapseStatistic"><s:message
+						code="global.aside.statistic" /> </a>
+				<div class="collapse" id="collapseStatistic"
+					style="font-size: 14px">
+					<a
+						class="list-group-item list-group-item-action bg-dark text-light"
+						href="statisticStaff.htm"><s:message
+							code="global.aside.statistic.staff" /> </a> <a
+						class="list-group-item list-group-item-action bg-dark text-light"
+						href="statisticDepart.htm"><s:message
+							code="global.aside.statistic.depart" /></a>
 				</div>
 			</div>
 		</aside>

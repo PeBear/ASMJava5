@@ -3,6 +3,7 @@ package com.xpeter.service;
 import java.util.List;
 
 import com.xpeter.model.Staff;
+import com.xpeter.model.ThanhTich;
 
 public interface StaffService {
 	public List<Staff> getListStaff(String name);
@@ -15,5 +16,7 @@ public interface StaffService {
 
 	public boolean deleteStaff(String staffId);
 
-	public void getThanhTich(String staffId);
+	public List<ThanhTich> getListStatistic(String staffId);
+	
+	public List<ThanhTich> getTop10Statistic();
 }

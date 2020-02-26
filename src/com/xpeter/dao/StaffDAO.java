@@ -3,6 +3,7 @@ package com.xpeter.dao;
 import java.util.List;
 
 import com.xpeter.model.Staff;
+import com.xpeter.model.ThanhTich;
 
 public interface StaffDAO {
 	public List<Staff> getListStaff(String name);
@@ -15,5 +16,7 @@ public interface StaffDAO {
 
 	public boolean deleteStaff(String staffId);
 	
-	public void getThanhTich(String staffId);
+	public List<ThanhTich> getListStatistic(String staffId);
+	
+	public List<ThanhTich> getTop10Statistic();
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xpeter.dao.DepartDAO;
 import com.xpeter.model.Depart;
+import com.xpeter.model.ThanhTich;
 
 @Service
 @Transactional
@@ -45,6 +46,11 @@ public class DepartServiceImpl implements DepartService {
 	@Override
 	public boolean deleteDepart(String departId) {
 		return departDAO.deleteDepart(departId);
+	}
+
+	@Override
+	public List<ThanhTich> getListStatistic() {
+		return departDAO.getListStatistic();
 	}
 
 }

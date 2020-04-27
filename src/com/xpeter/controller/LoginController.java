@@ -1,6 +1,7 @@
 package com.xpeter.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,10 @@ import com.xpeter.service.UserService;
 
 @Controller
 public class LoginController {
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
@@ -25,7 +26,7 @@ public class LoginController {
 	public String displayLogin(ModelMap model) {
 		return "login";
 	}
-	
+
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String checkLogin(ModelMap model, HttpServletRequest request) {
 		String username = request.getParameter("username");
@@ -35,6 +36,9 @@ public class LoginController {
 		} else {
 			String password = request.getParameter("password");
 			if (user.getPassword().equals(password)) {
+				HttpSession session = request.getSession(true);
+				session.setAttribute("user", user);
+				session.setMaxInactiveInterval(300);
 				return "redirect:dashboard.htm";
 			}
 		}

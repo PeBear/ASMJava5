@@ -10,7 +10,6 @@ import com.xpeter.dao.RecordDAO;
 import com.xpeter.model.Record;
 
 @Service
-@Transactional
 public class RecordServiceImpl implements RecordService {
 	@Autowired
 	RecordDAO recordDAO;
@@ -38,16 +37,19 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
+	@Transactional
 	public boolean insertRecord(Record record) {
 		return recordDAO.insertRecord(record);
 	}
 
 	@Override
+	@Transactional
 	public boolean updateRecord(Record record) {
 		return recordDAO.updateRecord(record);
 	}
 
 	@Override
+	@Transactional
 	public boolean deleteRecord(int recordId) {
 		return recordDAO.deleteRecord(recordId);
 	}

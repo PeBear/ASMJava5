@@ -43,7 +43,8 @@
 								</c:if></td>
 							<td>${staff.birthday}</td>
 							<td>${staff.email}</td>
-							<td>${staff.photo}</td>
+							<td><img src="resources/images/staff/${staff.photo}"
+								height="50px" /></td>
 							<td>${staff.phone}</td>
 							<td><fmt:formatNumber value="${staff.salary}" /></td>
 							<td>${staff.notes}</td>
@@ -85,10 +86,10 @@
 				<s:message code="home.staff.delete" />
 				<b><span id="userDelete"></span></b>?
 				<div class="text-right">
-					<form action="delete.htm" method="post">
+					<form action="staffManage.htm" method="post">
 						<input id="userToDeleteInput" type="hidden" value=""
 							name="staffId" />
-						<button type="submit" class="btn btn-danger">Delete</button>
+						<button type="submit" class="btn btn-danger" name="delete">Delete</button>
 					</form>
 				</div>
 			</div>
@@ -100,81 +101,103 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Insert Student Form</h5>
+				<div>
+					<h5 class="modal-title">Insert Student Form</h5>
+				</div>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<c:set var="action" value="insert.htm" />
-				<c:if test="${isUpdate == true}">
-					<c:set var="action" value="update.htm" />
-				</c:if>
-				<form:form modelAttribute="Staff" action="${action}"
-					class="was-validated" method="post" id="staffForm" name="staffForm">
+				<form action="staffManage.htm" class="needs-validation"
+					method="post" id="staffForm" name="staffForm"
+					enctype="multipart/form-data">
+
 					<div class="form-group">
-						<label for="staffId">StaffId</label>
-						<form:input path="staffId" id="staffId" class="form-control"
-							placeholder="Enter StaffId" required="required" />
-						<div class="valid-feedback">Valid.</div>
-						<div class="invalid-feedback">Please fill out this field.</div>
-					</div>
-					<div class="form-group">
-						<label for="name">Name:</label>
-						<form:input path="name" id="name" class="form-control"
-							placeholder="Enter Name" required="required" />
-						<div class="valid-feedback">Valid.</div>
-						<div class="invalid-feedback">Please fill out this field.</div>
-					</div>
-					<div class="form-group">
-						<label for="gender">Gender:</label>
-						<form:radiobutton id="male" path="gender" value="True" />
-						Male
-						<form:radiobutton id="female" path="gender" value="False" />
-						Female
+						<label for="staffId">StaffId</label> <input name="staffId"
+							id="staffId" class="form-control" placeholder="Enter StaffId"
+							required="required" />
 					</div>
 
 					<div class="form-group">
-						<label for="birthday">Birthday ( MM/dd/yyyy ):</label>
-						<form:input id="birthday" type="date" path="birthday"
-							class="form-control" required="required" />
+						<input type="file" id="imgInp" name="filePhoto" />
 					</div>
 
 					<div class="form-group">
-						<label for="email">Email:</label>
-						<form:input path="email" id="email" class="form-control"
-							placeholder="Enter Email" required="required" />
+						<img id="blah" src="resources/images/staff/unknow.jpeg"
+							alt="your image" height="175px" />
 					</div>
 
 					<div class="form-group">
-						<label for="phone">Phone:</label>
-						<form:input path="phone" id="phone" class="form-control"
-							placeholder="Enter Phone" required="required" />
-					</div>
-					<div class="form-group">
-						<label for="salary">Salary:</label>
-						<form:input path="salary" id="salary" class="form-control"
-							placeholder="Enter Salary" />
+						<label for="name">Name:</label> <input name="name" id="name"
+							class="form-control" placeholder="Enter Name" required="required" />
 					</div>
 
 					<div class="form-group">
-						<label for="notes">Notes:</label>
-						<form:input path="notes" id="notes" class="form-control"
-							placeholder="Enter Notes" />
+						<label for="gender">Gender:</label> <input type="radio" id="male"
+							name="gender" value="Male" checked /> Male <input type="radio"
+							id="female" name="gender" value="Female" /> Female
 					</div>
 
 					<div class="form-group">
-						<label for="photo">Photo:</label>
-						<form:input path="photo" id="photo" class="form-control"
-							placeholder="Enter Photo" value="unknow.png" />
+						<label for="birthday">Birthday ( MM/dd/yyyy ):</label> <input
+							id="birthday" type="date" name="birthday" class="form-control"
+							required="required" />
 					</div>
-					<form:button class="btn btn-primary">Save</form:button>
-				</form:form>
+
+					<div class="form-group">
+						<label for="email">Email:</label> <input name="email" type="email"
+							id="email" class="form-control" placeholder="Enter Email"
+							required="required" />
+					</div>
+
+					<div class="form-group">
+						<label for="phone">Phone:</label> <input name="phone" id="phone"
+							class="form-control" placeholder="Enter Phone"
+							required="required" />
+					</div>
+
+					<div class="form-group">
+						<label for="salary">Salary:</label> <input name="salary"
+							id="salary" class="form-control" placeholder="Enter Salary"
+							required="required" />
+					</div>
+
+					<div class="form-group">
+						<label for="notes">Notes:</label> <input name="notes" id="notes"
+							class="form-control" placeholder="Enter Notes" />
+					</div>
+					<div class="form-group">
+						<label for="notes">Depart:</label> <select name="departId"
+							id="departId" class="form-control">
+							<c:forEach var="depart" items="${ListDepart}">
+								<option value="${depart.departId}">${depart.departId}</option>
+							</c:forEach>
+						</select>
+					</div>
+
+					<button class="btn btn-primary" id="btnSave" type="submit">Save</button>
+
+				</form>
 			</div>
 		</div>
 	</div>
 </div>
-
 <script>
 	var user;
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$('#blah').attr('src', e.target.result);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$("#imgInp").change(function() {
+		readURL(this)
+	});
 	//get staffId to delete
 	function getUserToDelete(username) {
 		user = username;
@@ -187,18 +210,18 @@
 	//reset insertForm and $action = insert.htm
 	function setInsertForm() {
 		staffForm.reset()
-		$('#staffForm').attr('action', 'insert.htm');
 		$('#staffId').prop('readonly', false);
+		$('#btnSave').attr('name', 'insert');
 	}
 
 	//get info staff to display update form
 	function crunchifyAjax(staffId) {
-		$('#staffForm').attr('action', 'update.htm');
 		$('#staffId').prop('readonly', true);
+		$('#btnSave').attr('name', 'update');
 		$.ajax({
 			type : "GET",
 			contentType : "application/json;",
-			url : 'testAJAX.htm',
+			url : 'staffManage/testAJAX.htm',
 			data : {
 				name : staffId,
 			},
@@ -217,10 +240,29 @@
 				$('#phone').val(data.phone);
 				$('#salary').val(data.salary);
 				$('#notes').val(data.notes);
+				$('#blah').attr("src", "resources/images/staff/" + data.photo);
+				$('#departId').val(data.departId.departId);
 			},
 			error : function(data) {
 				console.log(data);
 			}
 		});
 	};
+
+	bootstrapValidate('#salary', 'numeric:Please only enter numeric');
+	bootstrapValidate('#phone', 'max:10:Only 10 charaters');
+	bootstrapValidate('#phone', 'numeric:Please only enter numeric');
+	bootstrapValidate('#email', 'email:Email only!');
+	// Disable form submissions if there are invalid fields
+
+	// Get the forms we want to add validation styles to
+	var form = document.querySelector('.needs-validation');
+	form.addEventListener('submit', function(event) {
+		var error = document.getElementByClassName('is-invalid');
+		if (form.checkValidity() === false && error.length == 0) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		form.classList.add('was-validated');
+	});
 </script>

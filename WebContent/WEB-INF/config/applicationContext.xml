@@ -93,6 +93,7 @@
 				<value>classpath:home.about</value>
 				<value>classpath:home.staff</value>
 				<value>classpath:home.depart</value>
+				<value>classpath:home.user</value>
 				<value>classpath:home.record</value>
 				<value>classpath:home.dashboard</value>
 				<value>classpath:statistic.staff</value>
@@ -108,6 +109,11 @@
 	</bean>
 
 	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*" />
+			<mvc:exclude-mapping path="/login.htm" />
+			<bean class="com.xpeter.interceptor.SecurityInterceptor" />
+		</mvc:interceptor>
 		<bean id="localeChangeInterceptor"
 			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="language" />

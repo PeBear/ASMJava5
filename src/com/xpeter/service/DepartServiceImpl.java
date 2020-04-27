@@ -11,7 +11,6 @@ import com.xpeter.model.Depart;
 import com.xpeter.model.ThanhTich;
 
 @Service
-@Transactional
 public class DepartServiceImpl implements DepartService {
 
 	@Autowired
@@ -34,21 +33,25 @@ public class DepartServiceImpl implements DepartService {
 	}
 
 	@Override
+	@Transactional
 	public boolean insertDepart(Depart depart) {
 		return departDAO.insertDepart(depart);
 	}
 
 	@Override
+	@Transactional
 	public boolean updateDepart(Depart depart) {
 		return departDAO.updateDepart(depart);
 	}
 
 	@Override
+	@Transactional
 	public boolean deleteDepart(String departId) {
 		return departDAO.deleteDepart(departId);
 	}
 
 	@Override
+	@Transactional
 	public List<ThanhTich> getListStatistic() {
 		return departDAO.getListStatistic();
 	}

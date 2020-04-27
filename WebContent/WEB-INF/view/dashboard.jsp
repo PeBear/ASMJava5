@@ -12,29 +12,17 @@
 	</div>
 </div>
 
-<div class="m-4 bg-white">
-	<div>
-		<table class="table table-bordered table-hover">
-			<thead>
-				<tr class="text-center">
-					<th><s:message code="home.dashboard.column1" /></th>
-					<th><s:message code="home.dashboard.column2" /></th>
-					<th><s:message code="home.dashboard.column3" /></th>
-					<th><s:message code="home.dashboard.column4" /></th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:if test="${not empty ListStatistic}">
-					<c:forEach var="statistic" items="${ListStatistic}">
-						<tr>
-							<td>${statistic.name}</td>
-							<td>${statistic.achievement}</td>
-							<td>${statistic.discipline}</td>
-							<td>${statistic.result}</td>
-						</tr>
-					</c:forEach>
-				</c:if>
-			</tbody>
-		</table>
-	</div>
+<div class="m-4 bg-white row">
+	<c:if test="${not empty ListStaff}">
+		<c:forEach var="staff" items="${ListStaff}">
+			<div class="card m-3" style="width: 250px">
+				<img class="card-img-top" src="resources/images/staff/${staff.photo}"
+					alt="Card image" style="width: 100%">
+				<div class="card-body">
+					<h4 class="card-title">(${staff.staffId}) ${staff.name}</h4>
+					<p class="card-text">${staff.departId.name}</p>
+				</div>
+			</div>
+		</c:forEach>
+	</c:if>
 </div>

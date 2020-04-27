@@ -10,7 +10,6 @@ import com.xpeter.dao.UserDAO;
 import com.xpeter.model.User;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -33,16 +32,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public boolean insertUser(User user) {
 		return userDAO.insertUser(user);
 	}
 
 	@Override
+	@Transactional
 	public boolean updateUser(User user) {
 		return userDAO.updateUser(user);
 	}
 
 	@Override
+	@Transactional
 	public boolean deleteUser(String username) {
 		return userDAO.deleteUser(username);
 	}

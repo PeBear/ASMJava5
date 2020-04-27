@@ -58,7 +58,7 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	@Transactional
-	public List<ThanhTich> getTop10Statistic() {
+	public List<String> getTop10Statistic() {
 		return staffDAO.getTop10Statistic();
 	}
 }

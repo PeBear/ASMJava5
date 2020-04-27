@@ -58,7 +58,7 @@ public class DepartDAOImpl implements DepartDAO {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public boolean updateDepart(Depart depart) {
 		if (getInfoDepart(depart.getDepartId()) == null) {
@@ -81,11 +81,11 @@ public class DepartDAOImpl implements DepartDAO {
 
 	@Override
 	public boolean deleteDepart(String departId) {
-		Depart depart = getInfoDepart(departId);
+		Session session = sessionFactory.openSession();
+		Depart depart = (Depart) session.get(Depart.class, departId);
 		if (depart == null) {
 			return false;
 		}
-		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
 			session.delete(depart);

@@ -82,11 +82,12 @@ public class StaffDAOImpl implements StaffDAO {
 
 	@Override
 	public boolean deleteStaff(String staffId) {
-		Staff staff = getInfoStaff(staffId);
+		Session session = sessionFactory.openSession();
+		Staff staff = (Staff) session.get(Staff.class, staffId);
 		if (staff == null) {
 			return false;
 		}
-		Session session = sessionFactory.openSession();
+
 		try {
 			session.beginTransaction();
 			session.delete(staff);
@@ -110,7 +111,7 @@ public class StaffDAOImpl implements StaffDAO {
 		query.setParameter("staffId", staffId);
 		List<Object[]> list = query.list();
 		List<ThanhTich> listStatistic = new ArrayList<ThanhTich>();
-		//Dua vao cot cua sp
+		// Dua vao cot cua sp
 		if (list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
 				String name = String.valueOf((list.get(i)[0]));
@@ -124,36 +125,28 @@ public class StaffDAOImpl implements StaffDAO {
 		return listStatistic;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<ThanhTich> getTop10Statistic() {
+	public List<String> getTop10Statistic() {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "CALL spThongKeThanhTich(:staffId)";
+		String hql = "CALL spGetTop10Staff()";
 		Query query = session.createSQLQuery(hql);
-		query.setParameter("staffId", null);
 		List<Object[]> list = query.list();
-		List<ThanhTich> listStatistic = new ArrayList<ThanhTich>();
-		//Dua vao cot cua sp
+		List<String> listStaffId = new ArrayList<>();
+		// Dua vao cot cua sp
 		if (list.size() > 0) {
-			//get Top 10 cause spThongKeThanhTich has order desc
+			// get Top 10 cause spThongKeThanhTich has order desc
 			if (list.size() >= 10) {
 				for (int i = 0; i < 10; i++) {
-					String name = String.valueOf((list.get(i)[0]));
-					int achievement = Integer.parseInt((list.get(i)[1]).toString());
-					int discipline = Integer.parseInt((list.get(i)[2]).toString());
-					int result = Integer.parseInt((list.get(i)[3]).toString());
-					ThanhTich thanhTich = new ThanhTich(name, achievement, discipline, result);
-					listStatistic.add(thanhTich);
+					String staffId = String.valueOf((list.get(i)[0]));
+					listStaffId.add(staffId);
 				}
 			}
 			for (int i = 0; i < list.size(); i++) {
-				String name = String.valueOf((list.get(i)[0]));
-				int achievement = Integer.parseInt((list.get(i)[1]).toString());
-				int discipline = Integer.parseInt((list.get(i)[2]).toString());
-				int result = Integer.parseInt((list.get(i)[3]).toString());
-				ThanhTich thanhTich = new ThanhTich(name, achievement, discipline, result);
-				listStatistic.add(thanhTich);
+				String staffId = String.valueOf((list.get(i)[0]));
+				listStaffId.add(staffId);
 			}
 		}
-		return listStatistic;
+		return listStaffId;
 	}
 }

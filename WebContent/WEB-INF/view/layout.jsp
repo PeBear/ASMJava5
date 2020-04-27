@@ -15,6 +15,7 @@
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/popper.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/bootstrap-validate.js"></script>
 <style>
 header {
 	padding: 1.75em;
@@ -57,7 +58,10 @@ article {
 				</a> <a href="departManage.htm"
 					class="list-group-item list-group-item-action bg-dark text-light"><s:message
 						code="global.aside.depart" /> </a> 
-				<a href="#"
+						<a href="userManage.htm"
+					class="list-group-item list-group-item-action bg-dark text-light">
+					<s:message code="global.aside.user" />
+				</a> <a href="#"
 					class="list-group-item list-group-item-action bg-dark text-light dropdown-toggle collapsed"
 					data-toggle="collapse" data-target="#collapse"><s:message
 						code="global.aside.record" /> </a>
@@ -70,12 +74,11 @@ article {
 						href="recordManage.htm?type=false"><s:message
 							code="global.aside.record.discipline" /></a>
 				</div>
-				<a	href="#"
+				<a href="#"
 					class="list-group-item list-group-item-action bg-dark text-light dropdown-toggle collapsed"
 					data-toggle="collapse" data-target="#collapseStatistic"><s:message
 						code="global.aside.statistic" /> </a>
-				<div class="collapse" id="collapseStatistic"
-					style="font-size: 14px">
+				<div class="collapse" id="collapseStatistic" style="font-size: 14px">
 					<a
 						class="list-group-item list-group-item-action bg-dark text-light"
 						href="statisticStaff.htm"><s:message

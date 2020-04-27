@@ -18,5 +18,5 @@ public interface StaffService {
 
 	public List<ThanhTich> getListStatistic(String staffId);
 	
-	public List<ThanhTich> getTop10Statistic();
+	public List<String> getTop10Statistic();
 }
